@@ -1,0 +1,18 @@
+sources:
+  - type: "hdfs"
+    path: "src/test/resources/data/table1.csv"
+    alias: "table1"
+    format: "csv"
+    columns: "*"
+    rowFilter: "where 1=1"
+
+processors:
+  - type: sql
+    text: select * from table1
+    df: df4
+
+sinks:
+  - type: hdfs
+    df: df5
+    target: output/df4
+    format: csv

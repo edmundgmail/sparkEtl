@@ -18,10 +18,12 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-hive" % "2.4.6" % "provided",
   "org.apache.spark" %% "spark-catalyst" % "2.4.6" % "provided",
   "org.typelevel"        %% "simulacrum"      % "1.0.0",
-  "io.monix" %% "monix" % "3.2.2",
+  "org.yaml" % "snakeyaml" % "1.27",
   "org.typelevel" %% "cats-core" % "2.1.1" withSources() withJavadoc(),
   "org.typelevel" %% "cats-effect" % "2.1.4" withSources() withJavadoc(),
-  "org.typelevel" %% "cats-effect-laws" % "2.1.1" % "test")
+  "org.typelevel" %% "cats-effect-laws" % "2.1.1" % "test",
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+)
 
 scalacOptions ++= Seq(
   "-feature",

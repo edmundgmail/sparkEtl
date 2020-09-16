@@ -1,0 +1,19 @@
+sources:
+  - type: "hdfs"
+    path: "src/test/resources/data/table1.csv"
+    outputAlias: "table1"
+    outputDf: "df"
+    format: "csv"
+    columns: "*"
+
+processors:
+  - type: sql
+    text: select * from table1
+    outputDf: df4
+    outputAlias: table2
+
+sinks:
+  - type: hdfs
+    df: df5
+    target: output/df4
+    format: csv

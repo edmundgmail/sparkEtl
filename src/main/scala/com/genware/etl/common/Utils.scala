@@ -1,11 +1,9 @@
 package com.genware.etl.common
 
-import cats.effect._
-import cats.implicits._
-
 import com.genware.etl.models.ErrorInfo
-import scala.collection.Map
+
 import scala.collection.JavaConverters._
+import scala.collection.Map
 import scala.reflect.{ClassTag, _}
 
 

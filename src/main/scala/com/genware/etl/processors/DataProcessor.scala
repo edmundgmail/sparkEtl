@@ -1,6 +1,5 @@
 package com.genware.etl.processors
 
-import cats.effect.Sync
 import com.genware.etl.common.ContextExecutor
 import com.genware.etl.models.ErrorInfo
 

@@ -6,7 +6,7 @@ import com.genware.etl.common.ContextExecutor
 import com.genware.etl.models.{ConfigParam, ErrorInfo}
 
 trait DataSource {
-  def load(context: ContextExecutor): Unit
+  def load[F[_]: Sync](context: ContextExecutor): F[Unit]
   def applyTemplate(config: ConfigParam): DataSource
 }
 

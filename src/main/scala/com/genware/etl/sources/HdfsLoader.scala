@@ -1,24 +1,33 @@
 package com.genware.etl.sources
-import cats.effect._
-import cats.implicits._
+import cats.effect.Sync
 import com.genware.etl.common.{ContextExecutor, Utils}
 import com.genware.etl.models.{ConfigParam, ErrorInfo}
 
 case class HdfsLoader(path: String, outputAlias: Option[String], outputDf: Option[String], format: String, options: List[(String, String)], columns: String) extends DataSource {
   override def applyTemplate(config: ConfigParam): HdfsLoader = this
 
-  override def load(context: ContextExecutor): Unit = {
-    val df = options.foldLeft(context.spark.read.format(format))((z, b) => z.option(b._1, b._2)).load(path)
-    val df1 = columns match {
-      case "*" | "" => df
-      case _ => {
-        val columnsList = columns.split(",").toList
-        df.select(columnsList.head, columnsList.tail: _*)
+  override def load[F[_]:Sync](context: ContextExecutor): F[Unit] = {
+    Sync[F].delay{
+      val df = options.foldLeft(context.spark.read.format(format))((z, b) => z.option(b._1, b._2)).load(path)
+
+      val df1 = columns match {
+        case "*" | "" => df
+        case _ => {
+          val columnsList = columns.split(",").toList
+          df.select(columnsList.head, columnsList.tail: _*)
+        }
+      }
+
+      outputDf match {
+        case Some(d) => context.df.put(d, df1)
+        case _ =>
+      }
+
+      outputAlias match {
+        case Some(alias) => df1.createOrReplaceGlobalTempView(alias)
+        case _ =>
       }
     }
-
-
-
   }
 }
 

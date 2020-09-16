@@ -48,11 +48,17 @@ trait Environment {
       cf <- Utils.toT[List[Map[String, _]]](conf)
       c <- cf.map(s=>DataSink(s)).sequence
     }yield c
-    case _ => Left(ErrorInfo("Can't get the sources"))
 
+    case _ => Left(ErrorInfo("Can't get the Sinks"))
   }
 
-  private def getProcessors(config: Option[Any]): Either[ErrorInfo, List[DataProcessor]] = ???
+  private def getProcessors(config: Option[Any]): Either[ErrorInfo, List[DataProcessor]] = config match {
+    case Some(conf) => for {
+      cf <- Utils.toT[List[Map[String, _]]](conf)
+      c <- cf.map(s=>DataProcessor(s)).sequence
+    } yield c
+    case _ => Left(ErrorInfo("Can't load the processors"))
+  }
 
   def setup(config: ConfigParam, sparkSession: SparkSession) : Either[ErrorInfo, ContextExecutor] = for {
     jobConf <- getYamlConfig(config.jobYml)

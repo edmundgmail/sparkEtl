@@ -1,6 +1,5 @@
 package com.genware.etl.sinks
 import cats.effect._
-import cats.implicits._
 import com.genware.etl.common.{ContextExecutor, Utils}
 import com.genware.etl.models.{ConfigParam, ErrorInfo}
 import org.apache.spark.sql.{DataFrame, SaveMode}
@@ -8,7 +7,7 @@ import org.apache.spark.sql.{DataFrame, SaveMode}
 case class HdfsWriter(disabled: Boolean, outputDf: String, format: String, target: String, options: List[(String, String)], partitionBy: Option[String]) extends DataSink {
   override def applyTempalte(config: ConfigParam): HdfsWriter = this
 
-  override def write[F[+_] : Sync](context: ContextExecutor): F[Unit] = {
+  override def write[F[_] : Sync](context: ContextExecutor): F[Unit] = {
     val df = context.df.get(outputDf)
     if(!disabled && df.isDefined) {
        Sync[F].delay {
@@ -20,7 +19,6 @@ case class HdfsWriter(disabled: Boolean, outputDf: String, format: String, targe
       Sync[F].unit
     }
   }
-
 }
 
 object HdfsWriter {

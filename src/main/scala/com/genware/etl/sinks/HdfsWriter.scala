@@ -13,7 +13,7 @@ case class HdfsWriter(disabled: Boolean, outputDf: String, format: String, targe
        Sync[F].delay {
         val partitions = partitionBy.map(_.split(",").toList).getOrElse(List())
         val df:DataFrame = context.df.get(outputDf).getOrElse(context.spark.emptyDataFrame)
-        options.foldLeft(partitions.foldLeft(df.write)((z, b)=>z.partitionBy(b)))((z, o) => z.option(o._1, o._2)).mode(SaveMode.Overwrite).save(target)
+        options.foldLeft(partitions.foldLeft(df.write.format(format))((z, b)=>z.partitionBy(b)))((z, o) => z.option(o._1, o._2)).mode(SaveMode.Overwrite).save(target)
       }
     }else{
       Sync[F].unit

@@ -24,7 +24,7 @@ case class HdfsLoader(path: String, outputAlias: Option[String], outputDf: Optio
       }
 
       outputAlias match {
-        case Some(alias) => df1.createOrReplaceGlobalTempView(alias)
+        case Some(alias) => df1.createOrReplaceTempView(alias)
         case _ =>
       }
     }

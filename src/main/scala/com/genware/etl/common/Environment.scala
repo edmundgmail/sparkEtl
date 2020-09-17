@@ -14,7 +14,7 @@ import org.yaml.snakeyaml.Yaml
 import scala.collection.parallel.mutable
 
 trait Environment {
-  private def getYamlConfig(path: String): Either[ErrorInfo, Map[String, _]] = Utils.toScalaTypeT(new Yaml().load(new FileInputStream(new File(path))))
+  private def getYamlConfig(path: String): Either[ErrorInfo, Map[String, _]] = Utils.toScalaTypeT[Map[String, _]](new Yaml().load(new FileInputStream(new File(path))))
   private def getSparkConf(config: Option[Any]): Either[ErrorInfo, SparkConf] = config match {
     case Some(conf) => Utils.toT[List[Map[String, String]]](conf).map(s => s.reduce(_ ++ _)).map(new SparkConf().setAll(_))
     case _ => Left(ErrorInfo("Can't load spark conf"))

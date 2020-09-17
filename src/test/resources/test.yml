@@ -1,6 +1,6 @@
 spark:
   - app.name: testspark
-  - spark.master: yarn-cluster
+  - spark.master: local
   - spark.dynamicAllocation.enabled: "true"
   - spark.shuffle.service.enabled: "true"
   - spark.driver.userClassPathFirst: "true"

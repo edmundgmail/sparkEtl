@@ -1,3 +1,6 @@
 target
 project/target
 .idea
+metastore_db
+output
+derby.log

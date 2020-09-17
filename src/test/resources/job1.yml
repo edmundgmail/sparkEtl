@@ -14,6 +14,6 @@ processors:
 
 sinks:
   - type: hdfs
-    df: df5
+    persiteDf: df4
     target: output/df4
     format: csv

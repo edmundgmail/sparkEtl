@@ -1,10 +1,11 @@
 package com.genware.etl.processors
 
+import cats.effect.Sync
 import com.genware.etl.common.ContextExecutor
 import com.genware.etl.models.ErrorInfo
 
 trait DataProcessor {
-  def process(context: ContextExecutor): Unit
+  def process[F[_]: Sync](context: ContextExecutor): F[Unit]
 }
 
 object DataProcessor {

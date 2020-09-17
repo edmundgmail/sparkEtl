@@ -1,10 +1,11 @@
 package com.genware.etl.processors
 
+import cats.effect.Sync
 import com.genware.etl.common.ContextExecutor
 import com.genware.etl.models.ErrorInfo
 
 case class SqlProcessor(sql: String, outputDf: Option[String], outputAlias: Option[String]) extends DataProcessor {
-  override def process(context: ContextExecutor): Unit = {
+  override def process[F[_]: Sync](context: ContextExecutor): F[Unit] = Sync[F].delay {
     val df = context.spark.sql(sql)
     outputDf match {
       case Some(d) => context.df.put(d.toString, df)

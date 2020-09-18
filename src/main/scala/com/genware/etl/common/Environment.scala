@@ -29,7 +29,7 @@ trait Environment {
     for {
       commonConf <- getYamlConfig(config.appYml)
       sparkConf <- getSparkConf(commonConf.get("spark"))
-      sparkConf <- getEsConf(commonConf.get(s"elastic-${config.env}"))(sparkConf)
+      sparkConf <- getEsConf(commonConf.get(s"elastic"))(sparkConf)
     }yield SparkSession.builder.config(sparkConf).enableHiveSupport.getOrCreate
 
   private def getSources(config: Option[Any]): Either[ErrorInfo, List[DataSource]] = config match {

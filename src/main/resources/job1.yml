@@ -1,18 +1,19 @@
 sources:
   - type: "hdfs"
     path: "src/test/resources/data/table1.csv"
-    alias: "table1"
+    outputAlias: "table1"
+    outputDf: "df"
     format: "csv"
     columns: "*"
-    rowFilter: "where 1=1"
 
 processors:
   - type: sql
     text: select * from table1
-    df: df4
+    outputDf: df4
+    outputAlias: table2
 
 sinks:
   - type: hdfs
-    df: df5
+    persiteDf: df4
     target: output/df4
     format: csv

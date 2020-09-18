@@ -6,7 +6,7 @@ spark:
   - spark.driver.userClassPathFirst: "true"
   - spark.sql.orc.filterPushdown: "true"
 
-elastic-dev:
+elastic:
   - cluster.name: "localhost"
   - es.nodes: "localhost:9200"
   - es.net.http.auth.user: "elastic"

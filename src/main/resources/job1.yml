@@ -5,6 +5,9 @@ sources:
     outputDf: "df"
     format: "csv"
     columns: "*"
+    options:
+      - header: "true"
+      - delimiter: ","
 
 processors:
   - type: sql
@@ -17,3 +20,6 @@ sinks:
     persiteDf: df4
     target: output/df4
     format: csv
+    options:
+      - header: "true"
+      - delimiter: "|"

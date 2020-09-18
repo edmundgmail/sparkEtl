@@ -1,14 +1,13 @@
 package com.genware.etl.processors
 
 import cats.effect.Sync
-import cats.implicits._
 import com.genware.etl.common.{AppLogger, ContextExecutor, Utils}
 import com.genware.etl.models.ErrorInfo
-import scala.reflect.runtime.universe.{Quasiquote, runtimeMirror}
-import scala.tools.reflect.ToolBox
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import scala.collection.parallel.ParMap
+import scala.reflect.runtime.universe.runtimeMirror
+import scala.tools.reflect.ToolBox
 
 case class DFProcessor(inputDf: List[String], text: String, outputDf: Option[String], outputAlias: Option[String]) extends DataProcessor with AppLogger {
   val tb = runtimeMirror(getClass.getClassLoader).mkToolBox()

@@ -9,6 +9,7 @@ case class HdfsWriter(disabled: Boolean, outputDf: String, format: String, targe
 
   override def write[F[_] : Sync](context: ContextExecutor): F[Unit] = {
     val df = context.df.get(outputDf)
+
     if(!disabled && df.isDefined) {
        Sync[F].delay {
         val partitions = partitionBy.map(_.split(",").toList).getOrElse(List())

@@ -22,7 +22,10 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "2.1.1" withSources() withJavadoc(),
   "org.typelevel" %% "cats-effect" % "2.1.4" withSources() withJavadoc(),
   "org.typelevel" %% "cats-effect-laws" % "2.1.1" % "test",
-  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+  "com.twitter" %% "util-eval" % "6.43.0",
+  "org.scala-lang" % "scala-compiler" % "2.12.8",
+  "org.scala-lang" % "scala-reflection" % "2.12.8"
 )
 
 scalacOptions ++= Seq(

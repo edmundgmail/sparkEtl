@@ -54,6 +54,7 @@ object Utils {
     case _ => a
   }
 
+
   def toT[T: ClassTag](a: Any) : Either[ErrorInfo, T] = a match {
     case t: T => Right(t)
     case _ => Left(ErrorInfo((s"Can't cast ${a.toString} to class ${classTag[T]}")))

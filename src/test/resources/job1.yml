@@ -25,10 +25,26 @@ processors:
     outputDf: dfStudent1
     outputAlias: student1
 
+  - type: dataframe
+    inputDf:
+     - dfStudent1
+     - dfClass
+    text: dfStudent1.join(dfClass, Seq("class"), "left_outer")
+    outputDf: dfStudentClass
+    outputAlias: studentClass
+
 sinks:
   - type: hdfs
-    persiteDf: dfStudent1
+    persiteDf: dfStudent
     target: output/student
+    format: csv
+    options:
+      - header: "true"
+      - delimiter: "|"
+
+  - type: hdfs
+    persiteDf: dfStudentClass
+    target: output/studentClass
     format: csv
     options:
       - header: "true"

@@ -11,6 +11,7 @@ trait DataProcessor {
 object DataProcessor {
   def apply(config: Map[String, Any]): Either[ErrorInfo, DataProcessor] = config.get("type") match {
     case Some("sql") => SqlProcessor(config.get("text"), config.get("outputDf"), config.get("outputAlias"))
+    case Some("dataframe") => DFProcessor(config.get("inputDf"), config.get("text"), config.get("outputDf"), config.get("outputAlias"))
     case _ => Left(ErrorInfo("unknown data processor type"))
   }
 }

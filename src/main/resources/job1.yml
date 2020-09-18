@@ -1,8 +1,18 @@
 sources:
   - type: "hdfs"
-    path: "src/test/resources/data/table1.csv"
-    outputAlias: "table1"
-    outputDf: "df"
+    path: "src/test/resources/data/student.csv"
+    outputAlias: "student"
+    outputDf: "dfStudent"
+    format: "csv"
+    columns: "*"
+    options:
+      - header: "true"
+      - delimiter: ","
+
+  - type: "hdfs"
+    path: "src/test/resources/data/class.csv"
+    outputAlias: "class"
+    outputDf: "dfClass"
     format: "csv"
     columns: "*"
     options:
@@ -11,14 +21,14 @@ sources:
 
 processors:
   - type: sql
-    text: select * from table1
-    outputDf: df4
-    outputAlias: table2
+    text: select * from student where age > 9
+    outputDf: dfStudent1
+    outputAlias: student1
 
 sinks:
   - type: hdfs
-    persiteDf: df4
-    target: output/df4
+    persiteDf: dfStudent1
+    target: output/student
     format: csv
     options:
       - header: "true"

@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-effect-laws" % "2.1.1" % "test",
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   "org.scala-lang" % "scala-compiler" % "2.12.8",
-  "org.scala-lang" % "scala-reflection" % "2.12.8"
+  "org.scala-lang" % "scala-reflect" % "2.12.8"
 )
 
 scalacOptions ++= Seq(
